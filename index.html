@@ -362,7 +362,7 @@
 
                 <button
                     class="event-btn"
-                    onclick="alert('IRONMAN BUTTON WORKS')"
+                    onclick="selectEvent('Ironman 70.3 Davao')"
                 >
                     FIND MY PHOTOS
                 </button>
@@ -555,107 +555,31 @@ let selectedEvent = "";
 let selectedEventId = null;
 
 
-async function selectEvent(eventName) {
+function selectEvent(eventName) {
 
     selectedEvent = eventName;
 
-    const message =
-        document.getElementById("message");
+    selectedEventId = 1;
 
-    const searchBox =
-        document.getElementById("searchBox");
+    document.getElementById("eventTitle").innerHTML =
+        "📸 " + eventName;
 
-    const eventTitle =
-        document.getElementById("eventTitle");
+    document.getElementById("message").innerHTML =
+        "Ready to search photos from <strong>" +
+        eventName +
+        "</strong>";
 
+    document.getElementById("bibInput").value = "";
 
-    message.innerHTML =
-        "🔎 Loading event...";
+    document.getElementById("results").innerHTML = "";
 
+    document.getElementById("searchBox")
+        .classList.add("active");
 
-    try {
-
-        const response = await fetch(
-            SUPABASE_URL +
-            "/rest/v1/events?name=eq." +
-            encodeURIComponent(eventName) +
-            "&select=id,name",
-            {
-                method: "GET",
-
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization":
-                        "Bearer " + SUPABASE_KEY
-                }
-            }
-        );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Supabase request failed"
-            );
-
-        }
-
-
-        const events =
-            await response.json();
-
-
-        if (events.length === 0) {
-
-            message.innerHTML =
-                "⚠️ Event not found.";
-
-            return;
-
-        }
-
-
-        selectedEventId =
-            events[0].id;
-
-
-        eventTitle.innerHTML =
-            "📸 " + selectedEvent;
-
-
-        message.innerHTML =
-            "Ready to search photos from <strong>" +
-            selectedEvent +
-            "</strong>";
-
-
-        document.getElementById(
-            "bibInput"
-        ).value = "";
-
-
-        document.getElementById(
-            "results"
-        ).innerHTML = "";
-
-
-        searchBox.classList.add("active");
-
-
-        searchBox.scrollIntoView({
+    document.getElementById("searchBox")
+        .scrollIntoView({
             behavior: "smooth"
         });
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        message.innerHTML =
-            "⚠️ Could not connect to the photo database.";
-
-    }
-
 }
 
 
