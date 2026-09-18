@@ -555,11 +555,11 @@ let selectedEvent = "";
 let selectedEventId = null;
 
 
-function selectEvent(eventName) {
+async function selectEvent(eventName) {
 
     selectedEvent = eventName;
 
-    selectedEventId = 1;
+    selectedEventId = null;
 
     document.getElementById("eventTitle").innerHTML =
         "📸 " + eventName;
