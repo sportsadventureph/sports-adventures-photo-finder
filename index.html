@@ -1,888 +1,416 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sports Adventures PH | Race Photo Finder</title>
+<title>Sports Adventures PH</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fa;
-            color: #111827;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    color: #111;
+}
 
-        header {
-            background: #111827;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
+header {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
 
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
+.hero {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+}
 
-        .hero {
-            background: linear-gradient(135deg, #111827, #374151);
-            color: white;
-            text-align: center;
-            padding: 70px 20px;
-        }
+.hero h1 {
+    font-size: 40px;
+    margin: 0 0 10px;
+}
 
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
-        }
+.container {
+    max-width: 1100px;
+    width: 92%;
+    margin: 40px auto;
+}
 
-        .hero p {
-            font-size: 18px;
-            opacity: 0.9;
-        }
+.events {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
 
-        .container {
-            width: 92%;
-            max-width: 1200px;
-            margin: 40px auto;
-        }
+.event-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,.1);
+}
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+.event-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
 
-        .section-title h2 {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
+.event-content {
+    padding: 20px;
+}
 
-        .section-title p {
-            color: #6b7280;
-        }
+.event-content h3 {
+    margin-top: 0;
+}
 
-        .events {
-            display: grid;
-            grid-template-columns: repeat(
-                auto-fit,
-                minmax(260px, 1fr)
-            );
-            gap: 25px;
-        }
+.event-btn {
+    width: 100%;
+    padding: 15px;
+    border: 0;
+    border-radius: 8px;
+    background: #111;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        .event-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            transition: 0.25s;
-        }
+.event-btn:hover {
+    background: #444;
+}
 
-        .event-card:hover {
-            transform: translateY(-5px);
-        }
+#searchBox {
+    display: none;
+    background: white;
+    margin-top: 40px;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+}
 
-        .event-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            display: block;
-        }
+#searchBox.show {
+    display: block;
+}
 
-        .event-content {
-            padding: 22px;
-        }
+.search-row {
+    display: flex;
+    gap: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+}
 
-        .event-content h3 {
-            font-size: 21px;
-            margin-bottom: 8px;
-        }
+#bibInput {
+    flex: 1;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
 
-        .event-content p {
-            color: #6b7280;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
+.search-btn {
+    padding: 15px 25px;
+    background: #111;
+    color: white;
+    border: 0;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        .event-btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            background: #111827;
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+#message {
+    margin-top: 20px;
+}
 
-        .event-btn:hover {
-            background: #374151;
-        }
+#results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
 
-        #searchBox {
-            display: none;
-            background: white;
-            padding: 30px;
-            margin-top: 50px;
-            border-radius: 18px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-        }
+.photo-card {
+    background: #f5f5f5;
+    border-radius: 10px;
+    overflow: hidden;
+}
 
-        #searchBox.active {
-            display: block;
-        }
+.photo-card img {
+    width: 100%;
+}
 
-        #eventTitle {
-            text-align: center;
-            font-size: 26px;
-            margin-bottom: 10px;
-        }
+.photo-info {
+    padding: 10px;
+}
 
-        .search-description {
-            text-align: center;
-            color: #6b7280;
-            margin-bottom: 25px;
-        }
+footer {
+    margin-top: 60px;
+    padding: 30px;
+    background: #111;
+    color: white;
+    text-align: center;
+}
 
-        .search-row {
-            display: flex;
-            gap: 10px;
-            max-width: 650px;
-            margin: auto;
-        }
+@media(max-width:600px) {
+    .hero h1 {
+        font-size: 30px;
+    }
 
-        #bibInput {
-            flex: 1;
-            padding: 15px;
-            border: 1px solid #d1d5db;
-            border-radius: 10px;
-            font-size: 16px;
-            outline: none;
-        }
+    .search-row {
+        flex-direction: column;
+    }
 
-        #bibInput:focus {
-            border-color: #111827;
-        }
-
-        .search-btn {
-            padding: 15px 25px;
-            border: none;
-            border-radius: 10px;
-            background: #111827;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .search-btn:hover {
-            background: #374151;
-        }
-
-        .selfie-btn {
-            display: block;
-            margin: 15px auto 0;
-            padding: 13px 25px;
-            border: 1px solid #111827;
-            border-radius: 10px;
-            background: white;
-            color: #111827;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .message {
-            text-align: center;
-            margin-top: 20px;
-            min-height: 25px;
-        }
-
-        .results {
-            display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .photo-card {
-            background: #f9fafb;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #e5e7eb;
-        }
-
-        .photo-card img {
-            width: 100%;
-            display: block;
-        }
-
-        .photo-info {
-            padding: 12px;
-            text-align: center;
-        }
-
-        .download-btn {
-            display: inline-block;
-            margin-top: 8px;
-            padding: 9px 15px;
-            background: #111827;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 13px;
-        }
-
-        footer {
-            margin-top: 70px;
-            background: #111827;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-        }
-
-        footer p {
-            opacity: 0.8;
-            margin-top: 6px;
-        }
-
-        @media (max-width: 600px) {
-
-            .hero h1 {
-                font-size: 30px;
-            }
-
-            .hero {
-                padding: 50px 20px;
-            }
-
-            .search-row {
-                flex-direction: column;
-            }
-
-            .search-btn {
-                width: 100%;
-            }
-
-            .event-image {
-                height: 200px;
-            }
-        }
-    </style>
+    .search-btn {
+        width: 100%;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">
-        SPORTS ADVENTURES PH
-    </div>
+    <strong>SPORTS ADVENTURES PH</strong>
 </header>
 
-
 <section class="hero">
-
-    <h1>
-        FIND YOUR RACE PHOTOS
-    </h1>
-
-    <p>
-        Search your event photos using your Bib Number.
-    </p>
-
+    <h1>FIND YOUR RACE PHOTOS</h1>
+    <p>Search your race photos using your Bib Number.</p>
 </section>
-
 
 <div class="container">
 
-    <div class="section-title">
+<h2 style="text-align:center;">
+SELECT YOUR EVENT
+</h2>
 
-        <h2>
-            SELECT YOUR EVENT
-        </h2>
+<div class="events">
 
-        <p>
-            Choose the event where you participated.
-        </p>
+<!-- EVENT 1 -->
+<div class="event-card">
 
-    </div>
+<img
+class="event-image"
+src="069A9169.jpg"
+alt="Ironman 70.3 Davao"
+>
 
+<div class="event-content">
 
-    <div class="events">
+<h3>Ironman 70.3 Davao</h3>
 
+<p>Find your race photos.</p>
 
-        <!-- IRONMAN 70.3 DAVAO -->
+<button
+class="event-btn"
+onclick="selectEvent('Ironman 70.3 Davao')"
+>
+FIND MY PHOTOS
+</button>
 
-        <div class="event-card">
+</div>
+</div>
 
-            <img
-                class="event-image"
-                src="069A9169.jpg"
-                alt="Ironman 70.3 Davao"
-            >
 
-            <div class="event-content">
+<!-- EVENT 2 -->
+<div class="event-card">
 
-                <h3>
-                    Ironman 70.3 Davao
-                </h3>
+<img
+class="event-image"
+src="545817393_122178533090553192_2330837409284352842_n.jpg"
+alt="TriDavOr 2026"
+>
 
-                <p>
-                    Find your race photos from
-                    Ironman 70.3 Davao.
-                </p>
+<div class="event-content">
 
-                <button
-                    class="event-btn"
-                    onclick="selectEvent('Ironman 70.3 Davao')"
-                >
-                    FIND MY PHOTOS
-                </button>
+<h3>TriDavOr 2026</h3>
 
-            </div>
+<p>Find your race photos.</p>
 
-        </div>
+<button
+class="event-btn"
+onclick="selectEvent('TriDavOr 2026')"
+>
+FIND MY PHOTOS
+</button>
 
+</div>
+</div>
 
-        <!-- TRIDAVOR 2026 -->
 
-        <div class="event-card">
+<!-- EVENT 3 -->
+<div class="event-card">
 
-            <img
-                class="event-image"
-                src="545817393_122178533090553192_2330837409284352842_n.jpg"
-                alt="TriDavOr 2026"
-            >
+<img
+class="event-image"
+src="605557730_122195883866553192_1161491079711210089_n.jpg"
+alt="Coral Dash 2026"
+>
 
-            <div class="event-content">
+<div class="event-content">
 
-                <h3>
-                    TriDavOr 2026
-                </h3>
+<h3>Coral Dash 2026</h3>
 
-                <p>
-                    Find your race photos from
-                    TriDavOr 2026.
-                </p>
+<p>Find your race photos.</p>
 
-                <button
-                    class="event-btn"
-                    onclick="selectEvent('TriDavOr 2026')"
-                >
-                    FIND MY PHOTOS
-                </button>
+<button
+class="event-btn"
+onclick="selectEvent('Coral Dash 2026')"
+>
+FIND MY PHOTOS
+</button>
 
-            </div>
+</div>
+</div>
 
-        </div>
 
+<!-- EVENT 4 -->
+<div class="event-card">
 
-        <!-- CORAL DASH 2026 -->
+<img
+class="event-image"
+src="069A9169.jpg"
+alt="Damosa Land 5150 Samal"
+>
 
-        <div class="event-card">
+<div class="event-content">
 
-            <img
-                class="event-image"
-                src="605557730_122195883866553192_1161491079711210089_n.jpg"
-                alt="Coral Dash 2026"
-            >
+<h3>Damosa Land 5150 Samal</h3>
 
-            <div class="event-content">
+<p>Find your race photos.</p>
 
-                <h3>
-                    Coral Dash 2026
-                </h3>
+<button
+class="event-btn"
+onclick="selectEvent('Damosa Land 5150 Samal')"
+>
+FIND MY PHOTOS
+</button>
 
-                <p>
-                    Find your race photos from
-                    Coral Dash 2026.
-                </p>
+</div>
+</div>
 
-                <button
-                    class="event-btn"
-                    onclick="selectEvent('Coral Dash 2026')"
-                >
-                    FIND MY PHOTOS
-                </button>
+</div>
 
-            </div>
 
-        </div>
+<!-- SEARCH -->
 
+<div id="searchBox">
 
-        <!-- DAMOSA LAND 5150 SAMAL -->
+<h2 id="eventTitle">
+📸 SELECTED EVENT
+</h2>
 
-        <div class="event-card">
+<p>
+Enter your Bib Number.
+</p>
 
-            <img
-                class="event-image"
-                src="069A9169.jpg"
-                alt="Damosa Land 5150 Samal"
-            >
+<div class="search-row">
 
-            <div class="event-content">
+<input
+id="bibInput"
+type="text"
+placeholder="Enter Bib Number"
+>
 
-                <h3>
-                    Damosa Land 5150 Samal
-                </h3>
+<button
+class="search-btn"
+onclick="searchBib()"
+>
+SEARCH
+</button>
 
-                <p>
-                    Find your race photos from
-                    Damosa Land 5150 Samal.
-                </p>
+</div>
 
-                <button
-                    class="event-btn"
-                    onclick="selectEvent('Damosa Land 5150 Samal')"
-                >
-                    FIND MY PHOTOS
-                </button>
+<div id="message"></div>
 
-            </div>
+<div id="results"></div>
 
-        </div>
-
-
-    </div>
-
-
-    <!-- SEARCH BOX -->
-
-    <div id="searchBox">
-
-        <h2 id="eventTitle">
-            📸 Select an Event
-        </h2>
-
-        <p class="search-description">
-            Enter your Bib Number to find your photos.
-        </p>
-
-
-        <div class="search-row">
-
-            <input
-                type="text"
-                id="bibInput"
-                placeholder="Enter your Bib Number"
-            >
-
-            <button
-                class="search-btn"
-                onclick="searchBib()"
-            >
-                SEARCH
-            </button>
-
-        </div>
-
-
-        <button
-            class="selfie-btn"
-            onclick="selfieSearch()"
-        >
-            🤳 SEARCH USING SELFIE
-        </button>
-
-
-        <div
-            id="message"
-            class="message"
-        ></div>
-
-
-        <div
-            id="results"
-            class="results"
-        ></div>
-
-    </div>
+</div>
 
 </div>
 
 
 <footer>
-
-    <strong>
-        SPORTS ADVENTURES PH
-    </strong>
-
-    <p>
-        Race Photography • Running • Trail • Triathlon
-    </p>
-
+<strong>SPORTS ADVENTURES PH</strong>
+<br>
+Race Photography • Running • Trail • Triathlon
 </footer>
 
 
 <script>
 
-const SUPABASE_URL =
-    "https://dcnaeyxzcdqgbxczmmeu.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_TPa93LPBs7vU0hIXhoW5nw_XuaSnIDo";
-
-
 let selectedEvent = "";
 let selectedEventId = null;
 
 
-/*
-    SELECT EVENT
-*/
-
-async function selectEvent(eventName) {
+function selectEvent(eventName) {
 
     selectedEvent = eventName;
 
-    const message =
-        document.getElementById("message");
+    document.getElementById("eventTitle").innerText =
+        "📸 " + eventName;
 
-    const searchBox =
-        document.getElementById("searchBox");
+    document.getElementById("message").innerText =
+        "Ready to search photos from " + eventName;
 
-    const eventTitle =
-        document.getElementById("eventTitle");
+    document.getElementById("bibInput").value = "";
 
+    document.getElementById("results").innerHTML = "";
 
-    message.innerHTML =
-        "🔎 Connecting to event database...";
+    document.getElementById("searchBox")
+        .classList.add("show");
 
-
-    try {
-
-        const response = await fetch(
-            SUPABASE_URL +
-            "/rest/v1/events?name=eq." +
-            encodeURIComponent(eventName) +
-            "&select=id,name",
-            {
-                method: "GET",
-
-                headers: {
-                    "apikey": SUPABASE_KEY,
-
-                    "Authorization":
-                        "Bearer " + SUPABASE_KEY
-                }
-            }
-        );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Supabase event request failed"
-            );
-
-        }
-
-
-        const events =
-            await response.json();
-
-
-        if (!events || events.length === 0) {
-
-            message.innerHTML =
-                "⚠️ Event not found in database.";
-
-            return;
-        }
-
-
-        selectedEventId =
-            events[0].id;
-
-
-        eventTitle.innerHTML =
-            "📸 " + selectedEvent;
-
-
-        message.innerHTML =
-            "Ready to search photos from <strong>" +
-            selectedEvent +
-            "</strong>";
-
-
-        document.getElementById(
-            "bibInput"
-        ).value = "";
-
-
-        document.getElementById(
-            "results"
-        ).innerHTML = "";
-
-
-        searchBox.classList.add("active");
-
-
-        searchBox.scrollIntoView({
+    document.getElementById("searchBox")
+        .scrollIntoView({
             behavior: "smooth"
         });
-
-
-    } catch (error) {
-
-        console.error(
-            "EVENT ERROR:",
-            error
-        );
-
-
-        message.innerHTML =
-            "⚠️ Could not connect to Supabase.";
-
-    }
-
 }
 
 
-/*
-    SEARCH BIB
-*/
-
-async function searchBib() {
+function searchBib() {
 
     const bib =
-        document.getElementById(
-            "bibInput"
-        ).value.trim();
-
-
-    const message =
-        document.getElementById(
-            "message"
-        );
-
-
-    const results =
-        document.getElementById(
-            "results"
-        );
-
+        document.getElementById("bibInput")
+        .value
+        .trim();
 
     if (!bib) {
 
-        message.innerHTML =
-            "⚠️ Please enter your Bib Number.";
+        document.getElementById("message")
+            .innerText =
+            "Please enter your Bib Number.";
 
         return;
     }
 
-
-    if (!selectedEventId) {
-
-        message.innerHTML =
-            "⚠️ Please select an event first.";
-
-        return;
-    }
-
-
-    message.innerHTML =
-        "🔎 Searching Bib <strong>" +
-        bib +
-        "</strong>...";
-
-
-    results.innerHTML = "";
-
-
-    try {
-
-        const response = await fetch(
-
-            SUPABASE_URL +
-
-            "/rest/v1/photos?event_id=eq." +
-
-            selectedEventId +
-
-            "&bib_number=eq." +
-
-            encodeURIComponent(bib) +
-
-            "&select=*",
-
-            {
-
-                method: "GET",
-
-                headers: {
-
-                    "apikey":
-                        SUPABASE_KEY,
-
-                    "Authorization":
-                        "Bearer " +
-                        SUPABASE_KEY
-
-                }
-
-            }
-
-        );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Photo search failed"
-            );
-
-        }
-
-
-        const photos =
-            await response.json();
-
-
-        if (!photos || photos.length === 0) {
-
-            message.innerHTML =
-                "😔 No photos found for Bib <strong>" +
-                bib +
-                "</strong> in <strong>" +
-                selectedEvent +
-                "</strong>.";
-
-            return;
-        }
-
-
-        message.innerHTML =
-            "📸 Found <strong>" +
-            photos.length +
-            "</strong> photo(s)!";
-
-
-        photos.forEach(function(photo) {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "photo-card";
-
-
-            let imageURL =
-                photo.photo_url;
-
-
-            if (
-                !imageURL &&
-                photo.filename
-            ) {
-
-                imageURL =
-                    SUPABASE_URL +
-                    "/storage/v1/object/public/race-photos/" +
-                    encodeURIComponent(
-                        photo.filename
-                    );
-
-            }
-
-
-            card.innerHTML = `
-
-                <img
-                    src="${imageURL}"
-                    alt="Race Photo"
-                >
-
-                <div class="photo-info">
-
-                    <strong>
-                        Bib ${photo.bib_number}
-                    </strong>
-
-                    <br>
-
-                    <a
-                        class="download-btn"
-                        href="${imageURL}"
-                        target="_blank"
-                    >
-                        VIEW PHOTO
-                    </a>
-
-                </div>
-
-            `;
-
-
-            results.appendChild(card);
-
-        });
-
-
-    } catch (error) {
-
-        console.error(
-            "SEARCH ERROR:",
-            error
-        );
-
-
-        message.innerHTML =
-            "⚠️ Something went wrong while searching.";
-
-    }
+    document.getElementById("message")
+        .innerText =
+        "Searching Bib " + bib + "...";
+
+    /*
+       SUPABASE SEARCH WILL BE ADDED
+       AFTER EVENT BUTTONS ARE CONFIRMED WORKING.
+    */
 
 }
 
 
-/*
-    SELFIE SEARCH
-*/
+document.getElementById("bibInput")
+.addEventListener("keydown", function(event) {
 
-function selfieSearch() {
+    if (event.key === "Enter") {
+        searchBib();
+    }
 
-    alert(
-        "🤳 Selfie Search\n\n" +
-        "This feature will be connected next."
-    );
-
-}
-
-
-/*
-    ENTER KEY SEARCH
-*/
-
-document
-    .getElementById("bibInput")
-    .addEventListener(
-        "keydown",
-        function(event) {
-
-            if (
-                event.key === "Enter"
-            ) {
-
-                searchBib();
-
-            }
-
-        }
-    );
+});
 
 </script>
-
 
 </body>
 </html>
