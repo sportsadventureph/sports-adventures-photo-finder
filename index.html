@@ -320,9 +320,15 @@ async function searchBib() {
             }
         );
 
-        if (!response.ok) {
-            throw new Error("Connection failed: " + response.status);
-        }
+       if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+        "Connection failed: " +
+        response.status +
+        " - " +
+        errorText
+    );
+}
 
         const data = await response.json();
 
