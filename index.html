@@ -447,15 +447,14 @@ async function searchBib() {
         document.getElementById("message").innerText =
             photos.length + " photo(s) found.";
 
-    } catch (error) {
+   } catch (error) {
 
-        console.error(error);
+    console.error(error);
 
-        resultsBox.innerHTML =
-            "<p>Something went wrong while searching.</p>";
+    resultsBox.innerHTML =
+        "<p style='color:red;'>ERROR: " + error.message + "</p>";
 
-        document.getElementById("message").innerText =
-            "Search error.";
+    document.getElementById("message").innerText =
+        "Supabase connection error.";
 
-    }
 }
