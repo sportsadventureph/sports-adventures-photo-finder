@@ -1,243 +1,635 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sports Adventures PH | Find My Photos</title>
+<title>Sports Adventures PH | Find Your Photos</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            color: #222;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        header {
-            background: #111;
-            color: white;
-            text-align: center;
-            padding: 25px 15px;
-        }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f6f8;
+    color: #151515;
+}
 
-        header h1 {
-            font-size: 28px;
-        }
+/* HEADER */
 
-        header p {
-            margin-top: 6px;
-            color: #bbb;
-        }
+header {
+    background: #0b0b0b;
+    color: white;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .hero {
-            background: white;
-            text-align: center;
-            padding: 60px 20px;
-        }
+.logo {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
 
-        .hero h2 {
-            font-size: 40px;
-            margin-bottom: 12px;
-        }
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+}
 
-        .hero p {
-            color: #666;
-            margin-bottom: 25px;
-        }
+/* HERO */
 
-        .search-box {
-            max-width: 500px;
-            margin: auto;
-            display: flex;
-            gap: 10px;
-        }
+.hero {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 70px 20px;
 
-        .search-box input {
-            flex: 1;
-            padding: 15px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.68),
+            rgba(0,0,0,0.68)
+        ),
+        url("069A9169.jpg");
 
-        .search-box button {
-            padding: 15px 25px;
-            background: #111;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
 
-        .search-box button:hover {
-            background: #333;
-        }
+.hero-content {
+    max-width: 750px;
+}
 
-        .results {
-            max-width: 1100px;
-            margin: auto;
-            padding: 40px 20px;
-            display: none;
-        }
+.badge {
+    display: inline-block;
+    padding: 8px 15px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 30px;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
 
-        .results h2 {
-            margin-bottom: 25px;
-        }
+.hero h1 {
+    font-size: 58px;
+    line-height: 1;
+    margin-bottom: 18px;
+}
 
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+.hero p {
+    font-size: 18px;
+    color: #ddd;
+    margin-bottom: 35px;
+}
 
-        .photo-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-        }
+/* SEARCH */
 
-        .photo-card img {
-            width: 100%;
-            display: block;
-        }
+.search-box {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 8px;
+    border-radius: 12px;
+    display: flex;
+}
 
-        .photo-info {
-            padding: 15px;
-        }
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 17px;
+    font-size: 16px;
+}
 
-        .photo-info button {
-            width: 100%;
-            margin-top: 10px;
-            padding: 12px;
-            border: none;
-            border-radius: 7px;
-            background: #111;
-            color: white;
-            cursor: pointer;
-        }
+.search-box button {
+    border: none;
+    background: #111;
+    color: white;
+    padding: 0 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-        .events {
-            max-width: 1100px;
-            margin: auto;
-            padding: 50px 20px;
-        }
+.search-box button:hover {
+    background: #333;
+}
 
-        .events h2 {
-            text-align: center;
-            margin-bottom: 25px;
-        }
+/* EVENTS */
 
-        .event-card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-        }
+.events {
+    max-width: 1150px;
+    margin: auto;
+    padding: 65px 20px;
+}
 
-        .event-card h3 {
-            margin-bottom: 8px;
-        }
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
 
-        .event-card p {
-            color: #666;
-        }
+.section-title h2 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
 
-        footer {
-            margin-top: 30px;
-            background: #111;
-            color: #aaa;
-            text-align: center;
-            padding: 25px;
-        }
+.section-title p {
+    color: #777;
+}
 
-        @media (max-width: 600px) {
+.event-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
 
-            .hero h2 {
-                font-size: 32px;
-            }
+.event-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: 0.2s;
+}
 
-            .search-box {
-                flex-direction: column;
-            }
+.event-card:hover {
+    transform: translateY(-5px);
+}
 
-        }
-    </style>
+.event-image {
+    height: 210px;
+    overflow: hidden;
+}
+
+.event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.event-info {
+    padding: 22px;
+}
+
+.event-info small {
+    color: #888;
+}
+
+.event-info h3 {
+    font-size: 22px;
+    margin: 8px 0;
+}
+
+.event-info p {
+    color: #777;
+    margin-bottom: 18px;
+}
+
+.view-button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    background: #111;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* RESULTS */
+
+.results {
+    display: none;
+    max-width: 1150px;
+    margin: auto;
+    padding: 20px;
+}
+
+.result-header {
+    margin-bottom: 25px;
+}
+
+.result-header h2 {
+    font-size: 28px;
+}
+
+.result-header p {
+    color: #777;
+    margin-top: 5px;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.photo-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.photo-wrapper {
+    position: relative;
+}
+
+.photo-wrapper img {
+    width: 100%;
+    display: block;
+}
+
+.watermark {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    color: white;
+    background: rgba(0,0,0,0.5);
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.photo-info {
+    padding: 15px;
+}
+
+.photo-info strong {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.buy-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #111;
+    color: white;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+/* HOW IT WORKS */
+
+.how {
+    background: white;
+    padding: 65px 20px;
+}
+
+.steps {
+    max-width: 1000px;
+    margin: auto;
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    text-align: center;
+}
+
+.step {
+    padding: 25px;
+}
+
+.step-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.step h3 {
+    margin-bottom: 8px;
+}
+
+.step p {
+    color: #777;
+    line-height: 1.5;
+}
+
+/* FOOTER */
+
+footer {
+    background: #0b0b0b;
+    color: #999;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+footer strong {
+    color: white;
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+
+    header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    nav a {
+        margin: 0 8px;
+    }
+
+    .hero {
+        min-height: 500px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .search-box {
+        flex-direction: column;
+        background: white;
+        gap: 5px;
+    }
+
+    .search-box button {
+        padding: 15px;
+    }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
+<!-- HEADER -->
+
 <header>
-    <h1>SPORTS ADVENTURES PH</h1>
-    <p>Race Photos & Event Photography</p>
+
+    <div class="logo">
+        SPORTS ADVENTURES PH
+    </div>
+
+    <nav>
+        <a href="#events">Events</a>
+        <a href="#how">How It Works</a>
+    </nav>
+
 </header>
+
+
+<!-- HERO -->
 
 <section class="hero">
 
-    <h2>Find Your Photos</h2>
+    <div class="hero-content">
 
-    <p>
-        Enter your Bib Number to find your race photos.
-    </p>
+        <div class="badge">
+            📸 EVENT PHOTOGRAPHY
+        </div>
 
-    <div class="search-box">
+        <h1>
+            FIND YOUR<br>
+            RACE PHOTOS
+        </h1>
 
-        <input
-            type="text"
-            id="bibNumber"
-            placeholder="Enter Bib Number"
-        >
+        <p>
+            Search and discover your best race moments
+            using your Bib Number.
+        </p>
 
-        <button onclick="searchPhotos()">
-            SEARCH
-        </button>
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="bibNumber"
+                placeholder="Enter your Bib Number"
+            >
+
+            <button onclick="searchPhotos()">
+                FIND PHOTOS
+            </button>
+
+        </div>
 
     </div>
 
 </section>
 
 
+<!-- RESULTS -->
+
 <section class="results" id="results">
 
-    <h2 id="resultTitle"></h2>
+    <div class="result-header">
 
-    <div class="photo-grid" id="photoGrid"></div>
-
-</section>
-
-
-<section class="events">
-
-    <h2>Latest Events</h2>
-
-    <div class="event-card">
-
-        <h3>Sample Running Event 2026</h3>
+        <h2 id="resultTitle"></h2>
 
         <p>
-            Search your photos using your Bib Number.
+            Your race photos from Sports Adventures PH
         </p>
 
     </div>
 
+    <div
+        class="photo-grid"
+        id="photoGrid">
+    </div>
+
 </section>
 
 
+<!-- EVENTS -->
+
+<section class="events" id="events">
+
+    <div class="section-title">
+
+        <h2>Latest Events</h2>
+
+        <p>
+            Find your photos from our latest races.
+        </p>
+
+    </div>
+
+
+    <div class="event-grid">
+
+
+        <div class="event-card">
+
+            <div class="event-image">
+
+                <img src="069A9169.jpg">
+
+            </div>
+
+            <div class="event-info">
+
+                <small>RUNNING EVENT</small>
+
+                <h3>
+                    Sample Running Event 2026
+                </h3>
+
+                <p>
+                    Race photos by Sports Adventures PH
+                </p>
+
+                <button
+                    class="view-button"
+                    onclick="document.getElementById('bibNumber').focus()">
+
+                    FIND MY PHOTOS
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="event-card">
+
+            <div class="event-image">
+
+                <img src="545817393_122178533090553192_2330837409284352842_n.jpg">
+
+            </div>
+
+            <div class="event-info">
+
+                <small>SPORTS ADVENTURES PH</small>
+
+                <h3>
+                    Race Photography
+                </h3>
+
+                <p>
+                    Search your photos by Bib Number.
+                </p>
+
+                <button
+                    class="view-button"
+                    onclick="document.getElementById('bibNumber').focus()">
+
+                    SEARCH PHOTOS
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section class="how" id="how">
+
+    <div class="section-title">
+
+        <h2>How It Works</h2>
+
+        <p>
+            Finding your race photos is easy.
+        </p>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="step-icon">
+                🔢
+            </div>
+
+            <h3>
+                1. Enter Your Bib
+            </h3>
+
+            <p>
+                Enter the Bib Number you used
+                during the event.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-icon">
+                📸
+            </div>
+
+            <h3>
+                2. Find Your Photos
+            </h3>
+
+            <p>
+                Browse through the photos
+                captured during your race.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-icon">
+                ⬇️
+            </div>
+
+            <h3>
+                3. Get Your Photos
+            </h3>
+
+            <p>
+                View, purchase, and download
+                your favorite race moments.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
 <footer>
 
-    © 2026 Sports Adventures PH
+    <p>
+        © 2026 <strong>Sports Adventures PH</strong>
+    </p>
+
+    <p>
+        Race Photos • Trail • Road • Triathlon
+    </p>
 
 </footer>
 
 
 <script>
+
+/* PHOTO DATABASE */
 
 const photos = {
 
@@ -253,10 +645,15 @@ const photos = {
 };
 
 
+/* SEARCH */
+
 function searchPhotos() {
 
     const bib =
-        document.getElementById("bibNumber").value.trim();
+        document
+        .getElementById("bibNumber")
+        .value
+        .trim();
 
     const results =
         document.getElementById("results");
@@ -267,20 +664,38 @@ function searchPhotos() {
     const title =
         document.getElementById("resultTitle");
 
+
     grid.innerHTML = "";
 
-    if (!photos[bib]) {
 
-        results.style.display = "block";
+    if (bib === "") {
 
-        title.textContent =
-            "No photos found for Bib " + bib;
+        alert(
+            "Please enter your Bib Number."
+        );
 
         return;
+
     }
 
 
     results.style.display = "block";
+
+
+    if (!photos[bib]) {
+
+        title.textContent =
+            "No photos found for Bib " + bib;
+
+        window.scrollTo({
+            top: results.offsetTop - 20,
+            behavior: "smooth"
+        });
+
+        return;
+
+    }
+
 
     title.textContent =
         "Photos for Bib " + bib;
@@ -297,19 +712,31 @@ function searchPhotos() {
 
         card.innerHTML = `
 
-            <img
-                src="${photo}"
-                alt="Race Photo"
-            >
+            <div class="photo-wrapper">
+
+                <img
+                    src="${photo}"
+                    alt="Race Photo"
+                >
+
+                <div class="watermark">
+                    SPORTS ADVENTURES PH
+                </div>
+
+            </div>
 
             <div class="photo-info">
 
-                <strong>Bib ${bib}</strong>
+                <strong>
+                    Bib ${bib}
+                </strong>
 
                 <button
-                    onclick="alert('HD download / payment system will be added next.')"
-                >
+                    class="buy-button"
+                    onclick="buyPhoto('${photo}')">
+
                     BUY / DOWNLOAD HD
+
                 </button>
 
             </div>
@@ -320,6 +747,26 @@ function searchPhotos() {
         grid.appendChild(card);
 
     });
+
+
+    window.scrollTo({
+
+        top: results.offsetTop - 20,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* BUY BUTTON */
+
+function buyPhoto(photo) {
+
+    alert(
+        "HD Photo purchase system coming next!"
+    );
 
 }
 
