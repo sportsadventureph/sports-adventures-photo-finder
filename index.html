@@ -292,7 +292,7 @@ function selectEvent(eventName) {
 }
 
 
-function searchBib() {
+async function searchBib() {
 
     const bib =
         document.getElementById("bibInput").value.trim();
@@ -306,19 +306,45 @@ function searchBib() {
     }
 
     document.getElementById("message").innerText =
-        "Searching Bib " + bib + "...";
+        "Connecting to photo database...";
 
-}
+    try {
 
+        const response = await fetch(
+            "https://dcnaeyxzcdqgbxczmmeu.supabase.co/rest/v1/photos?select=id&limit=1",
+            {
+                headers: {
+                    "apikey": "sb_publishable_TPa93LPBs7vU0hIXhoW5nw_XuaSnIDo",
+                    "Authorization": "Bearer sb_publishable_TPa93LPBs7vU0hIXhoW5nw_XuaSnIDo"
+                }
+            }
+        );
 
-document.getElementById("bibInput")
-.addEventListener("keydown", function(event) {
+        if (!response.ok) {
+            throw new Error("Connection failed: " + response.status);
+        }
 
-    if (event.key === "Enter") {
+        const data = await response.json();
 
-        searchBib();
+        console.log("Supabase connected:", data);
 
+        document.getElementById("message").innerText =
+            "✅ Supabase connected successfully!";
+
+        document.getElementById("results").innerHTML =
+            "<p>Database connection is working.</p>";
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("message").innerText =
+            "❌ Supabase connection failed.";
+
+        document.getElementById("results").innerHTML =
+            "<p>" + error.message + "</p>";
     }
+}
 
 });
 
